@@ -1,38 +1,38 @@
 name: AISDLC Demo Deploy
-  on:
-    workflow_dispatch:
-      inputs:
-        env:
-          description: Target environment
-          required: true
-          default: staging
-        image:
-          description: Container image to deploy
-          required: false
-          default: ghcr.io/example/demo:latest
-        release_id:
-          description: AISDLC release id (informational)
-          required: false
-          default: manual
-  jobs:
-    deploy:
-      runs-on: ubuntu-latest
-      steps:
-        - name: Show context
-          run: |
-            echo "Env:        ${{ inputs.env }}"
-            echo "Image:      ${{ inputs.image }}"
-            echo "Release id: ${{ inputs.release_id }}"
-        - name: Simulate pre-flight
-          run: |
-            echo "running pre-flight..."
-            sleep 2
-            echo "pre-flight ok"
-        - name: Simulate deploy
-          run: |
-            echo "deploying..."
-            sleep 3
-            echo "deploy complete"
-        - name: Simulate smoke
-          run: |
-            echo "smoke test ok"
+on:
+  workflow_dispatch:
+    inputs:
+      env:
+        description: Target environment
+        required: true
+        default: staging
+      image:
+        description: Container image to deploy
+        required: false
+        default: ghcr.io/example/demo:latest
+      release_id:
+        description: AISDLC release id (informational)
+        required: false
+        default: manual
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Show context
+        run: |
+          echo "Env:        ${{ inputs.env }}"
+          echo "Image:      ${{ inputs.image }}"
+          echo "Release id: ${{ inputs.release_id }}"
+      - name: Simulate pre-flight
+        run: |
+          echo "running pre-flight..."
+          sleep 2
+          echo "pre-flight ok"
+      - name: Simulate deploy
+        run: |
+          echo "deploying..."
+          sleep 3
+          echo "deploy complete"
+      - name: Simulate smoke
+        run: |
+          echo "smoke test ok"
