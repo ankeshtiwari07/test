@@ -76,6 +76,12 @@ class HealthResponse(BaseModel):
 # Endpoints
 # ---------------------------------------------------------------------------
 
+@app.get("/healthz", response_model=HealthResponse, status_code=200)
+def health_check() -> HealthResponse:
+    """GET /healthz - liveness probe with no storage dependency (FR-7)."""
+    return HealthResponse(status="ok")
+
+
 @app.post("/shorten", response_model=ShortenResponse, status_code=200)
 def shorten_url(body: ShortenRequest) -> ShortenResponse:
     """POST /shorten - create a short code for the supplied URL.
@@ -103,12 +109,6 @@ def shorten_url(body: ShortenRequest) -> ShortenResponse:
         short_code=short_code,
         short_url=f"{BASE_URL}/{short_code}",
     )
-
-
-@app.get("/healthz", response_model=HealthResponse, status_code=200)
-def health_check() -> HealthResponse:
-    """GET /healthz - liveness probe with no storage dependency (FR-7)."""
-    return HealthResponse(status="ok")
 
 
 @app.get("/{short_code}")
